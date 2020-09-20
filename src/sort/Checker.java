@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Checker {
     private static SortType sortType;
 
-
+    //Проверка файла на наличие строк, которые невохможно привести к целочисленному виду
     public boolean hasString(String fileName) throws FileNotFoundException {
         FileReader reader = new FileReader(fileName);
         Scanner scan = new Scanner(reader);
@@ -28,6 +28,7 @@ public class Checker {
         return false;
     }
 
+    //Проверка строковых элементов на сортированность
     public int sortedString(String fileName) throws FileNotFoundException {
         FileReader reader = new FileReader(fileName);
         Scanner scan = new Scanner(reader);
@@ -60,6 +61,7 @@ public class Checker {
             return -1;
     }
 
+    //Проверка целочисленных элементов на сортированность
     public int sortedInteger(String fileName) throws FileNotFoundException {
         FileReader reader = new FileReader(fileName);
         Scanner scan = new Scanner(reader);
@@ -92,6 +94,7 @@ public class Checker {
             return -1;
     }
 
+    //Проверка на наличие пробелов
     public boolean hasSpace(String fileName) throws FileNotFoundException {
         FileReader reader = new FileReader(fileName);
         Scanner scan = new Scanner(reader);

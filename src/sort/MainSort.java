@@ -7,9 +7,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+/*
+Для некоторых переменных, обозначающих сортировки, при значении меньшем 0 подразумевается сортировка по убыванию.
+При значении большем 0 подразумевается сортировка по возрастаниб
+ */
+
 public class MainSort {
     private final List<FileDownload> files = new ArrayList<>();
-    private static int sortType = 1;
+    private static int sortType = 1; //Необхоимый тип сортировки
     private static DataType dataType = DataType.INTEGER;
     private static final Options posixOptions = new Options();
     private static final Vector<String> infile = new Vector<>();
@@ -18,9 +23,13 @@ public class MainSort {
 
     public static void main(String[] args) {
         MainSort sort = new MainSort();
+
+        //Создание группы параметров для выбора типа данных
         OptionGroup dataTypeGroup = new OptionGroup();
         dataTypeGroup.addOption(new Option("s", false, "String type"));
         dataTypeGroup.addOption(new Option("i", false, "Integer type"));
+
+        //Создание группы параметров для выбора типа сортировки
         OptionGroup sortTypeGroup = new OptionGroup();
         sortTypeGroup.addOption(new Option("d", false, "descending sort"));
         sortTypeGroup.addOption(new Option("a", false, "Ascending sort"));
@@ -69,6 +78,11 @@ public class MainSort {
         boolean temp;
         int sortFile;
         if (dataType == DataType.INTEGER) {
+
+            /*
+             *Проверка файлов на наличие строк,
+             *которые невозможно преобразовать в целочисленные элементы
+             */
             for (int i = 0; i < infile.size(); i++) {
                 try {
                     temp = check.hasString(infile.elementAt(i));
@@ -84,6 +98,8 @@ public class MainSort {
                     i--;
                 }
             }
+
+            //Проверка на отсортированность файлов
             for (int i = 0; i < infile.size(); i++) {
                 try {
                     sortFile = check.sortedInteger(infile.elementAt(i));
@@ -92,6 +108,7 @@ public class MainSort {
                         infile.remove(i);
                         i--;
                     } else
+                        //Создание объектов для загрузки данных
                         files.add(new FileDownload(infile.elementAt(i), sortFile, sortType));
                 } catch (FileNotFoundException fileNotFoundException) {
                     System.out.println("Файл " + infile.elementAt(i) + " не найден");
@@ -100,8 +117,11 @@ public class MainSort {
                 }
             }
 
+            //Начало сортировки слиянием по целочисленному типу
             mergeSort.sortInteger(files, sortType, outfile);
         } else {
+
+            //Проверка файлов на наличие пробелов
             for (int i = 0; i < infile.size(); i++) {
                 try {
                     temp = check.hasSpace(infile.elementAt(i));
@@ -117,6 +137,8 @@ public class MainSort {
                     i--;
                 }
             }
+
+            //Проверка на отсортированность файлов
             for (int i = 0; i < infile.size(); i++) {
                 try {
                     sortFile = check.sortedString(infile.elementAt(i));
@@ -125,6 +147,7 @@ public class MainSort {
                         infile.remove(i);
                         i--;
                     } else
+                        //Создание объектов для загрузки данных
                         files.add(new FileDownload(infile.elementAt(i), sortFile, sortType));
                 } catch (FileNotFoundException fileNotFoundException) {
                     System.out.println("Файл " + infile.elementAt(i) + " не найден");
@@ -132,6 +155,8 @@ public class MainSort {
                     i--;
                 }
             }
+
+            //Начало сортировки слиянием по строковому типу
             mergeSort.sortString(files, sortType, outfile);
         }
 

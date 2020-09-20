@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.Scanner;
 
 public class FileDownload {
-    private final String fileName;
+    private final String fileName; //Имя файла для загрузки
     private FileReader reader;
     private Scanner scan;
     private boolean endOfFile = false;
-    private final int sortFile;
+    private final int sortFile; // Как отсортированны элементы
     private int size;
-    private final int sortType;
+    private final int sortType; //Как необходимо отсортировать элементы
+
 
     FileDownload(String name, int sortFile, int sortType) throws FileNotFoundException {
         fileName = name;
@@ -52,7 +53,7 @@ public class FileDownload {
         }
     }
 
-
+    //Загрузка целочисленных элементов
     public void downloadInteger(List<Integer> buffer) throws IOException {
         int count = 0;
         if (sortType > 0) {
@@ -115,6 +116,7 @@ public class FileDownload {
         }
     }
 
+    //Загрузка строковых элементов
     public void downloadString(List<String> buffer) throws IOException {
         int count = 0;
         if (sortType > 0) {
@@ -177,7 +179,7 @@ public class FileDownload {
         }
     }
 
-
+    //Getter загруженных целочисленных элементов
     public boolean getBufferInteger(List<Integer> userBuffer) {
         if (!endOfFile) {
             try {
@@ -190,6 +192,7 @@ public class FileDownload {
             return false;
     }
 
+    //Getter загруженных строковых элементов
     public boolean getBufferString(List<String> userBuffer) {
         if (!endOfFile) {
             try {

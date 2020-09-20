@@ -11,6 +11,7 @@ public class UploadingFile {
         fileWriter = new FileWriter(fileName);
     }
 
+    //Выгрузка строковых элементов
     public void uploadString(List<String> data) throws IOException {
         for (String datum : data) {
             fileWriter.write(datum + "\n");
@@ -18,6 +19,7 @@ public class UploadingFile {
         }
     }
 
+    //Выгрузка целочисленных элементов
     public void uploadInteger(List<Integer> data) throws IOException {
         for (Integer datum : data) {
             fileWriter.write(datum.toString() + "\n");
@@ -25,6 +27,7 @@ public class UploadingFile {
         }
     }
 
+    //Закрытие файла
     public void closeWriter() throws IOException {
         fileWriter.close();
     }
